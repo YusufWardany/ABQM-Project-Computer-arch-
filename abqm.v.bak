@@ -1,0 +1,120 @@
+module abqm (
+  input clk, 
+  input reset, 
+  input in, 
+  input out,
+  input [1:0]tcount,
+  output wire Full_flag, 
+  output wire Empty_flag,
+  output wire [6:0]OutputSegmentRight,
+  output wire [6:0]OutputSegmentLeft,
+  output wire [6:0]OutputSegmentpcount
+,output wire [7:0] Wait_Time
+,output wire [2:0] pcount
+);
+
+  
+  wire CLK1Hz;
+  clock_divider divider(clk,CLK1Hz);
+  
+  
+  
+  
+  counter counter_inst (clk, reset, in, out, pcount);
+  
+  FSM fsm_inst (
+    .clk(clk),
+    .reset(reset),
+    .in(in),
+    .out(out),
+    .pcount(pcount),
+    .full(Full_flag),
+    .empty(Empty_flag)
+  );
+  wire [1:0] address1;
+  wire [3:0] address2;
+  assign address1 = {tcount};
+  assign address2 = {pcount};
+
+
+
+  Rom rom_inst(clk, reset, {address1,address2}, Wait_Time);
+
+  
+  decoder_7seg segRight(clk, reset, Wait_Time[3],Wait_Time[2],Wait_Time[1],Wait_Time[0], OutputSegmentRight[0], OutputSegmentRight[1], OutputSegmentRight[2], OutputSegmentRight[3], 
+			OutputSegmentRight[4], OutputSegmentRight[5], OutputSegmentRight[6]);
+  decoder_7seg segLeft(clk, reset, Wait_Time[7],Wait_Time[6],Wait_Time[5],Wait_Time[4], OutputSegmentLeft[0], OutputSegmentLeft[1], OutputSegmentLeft[2], OutputSegmentLeft[3], 
+			OutputSegmentLeft[4], OutputSegmentLeft[5], OutputSegmentLeft[6]);
+  decoder_7seg segPcount(clk, reset, address2[3],address2[2],address2[1],address2[0], OutputSegmentpcount[0], OutputSegmentpcount[1], OutputSegmentpcount[2], OutputSegmentpcount[3], 
+			OutputSegmentpcount[4], OutputSegmentpcount[5], OutputSegmentpcount[6]);
+
+
+
+
+endmodule
+
+
+module abqm_tb;
+
+  reg clk = 0;
+  reg reset = 0;
+  reg in = 0;
+  reg out = 0;
+  reg [1:0] tcount = 1;
+  
+  // Outputs
+  wire Full_flag;
+  wire Empty_flag;
+  wire [6:0] OutputSegmentRight;
+  wire [6:0] OutputSegmentLeft;
+  wire [6:0] OutputSegmentpcount;
+wire [7:0] Wait_Time;
+wire [2:0] pcount;
+
+abqm uut (
+    .clk(clk),
+    .reset(reset),
+    .in(in),
+    .out(out),
+    .tcount(tcount),
+    .Full_flag(Full_flag),
+    .Empty_flag(Empty_flag),
+    .OutputSegmentRight(OutputSegmentRight),
+    .OutputSegmentLeft(OutputSegmentLeft),
+    .OutputSegmentpcount(OutputSegmentpcount), .Wait_Time(Wait_Time)
+    ,.pcount(pcount)
+  );
+
+always #5 clk = ~clk;
+initial
+begin
+#10 reset = 1;
+#10 reset = 0;
+#10 in = 1;out = 0; tcount = 1;
+#10 in = 0;out = 1; tcount = 1;
+#10 in = 1;out = 0; tcount = 1;
+#10 in = 1;out = 0; tcount = 2;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 1;out = 0; tcount = 1;
+#10 in = 1;out = 0; tcount = 1;
+
+
+
+#10 in = 1;out = 0; tcount = 3;
+#10 in = 1;out = 0; tcount = 3;
+#10 in = 1;out = 0; tcount = 3;
+
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 0;out = 1; tcount = 3;
+#10 in = 1;out = 0; tcount = 3;
+#10 in = 1;out = 0; tcount = 3;
+
+end
+
+endmodule

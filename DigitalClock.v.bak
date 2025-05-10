@@ -1,0 +1,138 @@
+module decoder_7seg (clk, reset, A, B, C, D, led_a, led_b, led_c, led_d, led_e, led_f, led_g);
+input A, B, C, D, clk, reset;
+output reg led_a; 
+output reg led_b;
+output reg led_c; 
+output reg led_d; 
+output reg led_e; 
+output reg led_f; 
+output reg led_g;
+always @(posedge clk or posedge reset) begin
+if(reset)
+begin
+led_a = 1'b0;
+led_b = 1'b0;
+led_c = 1'b0;
+led_d = 1'b0;
+led_e = 1'b0;
+led_f = 1'b0;
+led_g = 1'b0;
+end
+else
+begin
+led_a = ~(A | C | B&D | ~B&~D);
+led_b = ~(~B | ~C&~D | C&D);
+led_c = ~(B | ~C | D);
+led_d = ~(~B&~D | C&~D | B&~C&D | ~B&C |A);
+led_e = ~(~B&~D | C&~D);
+led_f = ~(A | ~C&~D | B&~C | B&~D);
+led_g = ~(A | B&~C | ~B&C | C&~D);
+end
+end
+
+endmodule
+
+
+
+
+module tb_decoder_7seg;
+  // Inputs
+  reg clk;
+  reg reset;
+  reg A;
+  reg B;
+  reg C;
+  reg D;
+
+  // Outputs
+  wire led_a;
+  wire led_b;
+  wire led_c;
+  wire led_d;
+  wire led_e;
+  wire led_f;
+  wire led_g;
+
+  // Instantiate the Unit Under Test (UUT)
+  decoder_7seg uut (
+    .clk(clk), 
+    .reset(reset), 
+    .A(A), 
+    .B(B), 
+    .C(C), 
+    .D(D), 
+    .led_a(led_a), 
+    .led_b(led_b), 
+    .led_c(led_c), 
+    .led_d(led_d), 
+    .led_e(led_e), 
+    .led_f(led_f), 
+    .led_g(led_g)
+  );
+
+  // Clock generation
+  always #5 clk = ~clk; // Toggle clock every 5 time units
+
+  initial begin
+    // Initialize Inputs
+    clk = 0;
+    reset = 0;
+    A = 0;
+    B = 0;
+    C = 0;
+    D = 0;
+
+    // Apply reset
+    reset = 1;
+    #10;
+    reset = 0;
+
+    // Apply test cases
+    // Test case for 0
+    {A, B, C, D} = 4'b0000; #10;
+    // Test case for 1
+    {A, B, C, D} = 4'b0001; #10;
+    // Test case for 2
+    {A, B, C, D} = 4'b0010; #10;
+    // Test case for 3
+    {A, B, C, D} = 4'b0011; #10;
+    // Test case for 4
+    {A, B, C, D} = 4'b0100; #10;
+    // Test case for 5
+    {A, B, C, D} = 4'b0101; #10;
+    // Test case for 6
+    {A, B, C, D} = 4'b0110; #10;
+    // Test case for 7
+    {A, B, C, D} = 4'b0111; #10;
+    // Test case for 8
+    {A, B, C, D} = 4'b1000; #10;
+    // Test case for 9
+    {A, B, C, D} = 4'b1001; #10;
+    // Test case for A
+    {A, B, C, D} = 4'b1010; #10;
+    // Test case for B
+    {A, B, C, D} = 4'b1011; #10;
+    // Test case for C
+    {A, B, C, D} = 4'b1100; #10;
+    // Test case for D
+    {A, B, C, D} = 4'b1101; #10;
+    // Test case for E
+    {A, B, C, D} = 4'b1110; #10;
+    // Test case for F
+    {A, B, C, D} = 4'b1111; #10;
+
+    // End simulation
+    //$finish;
+  end
+      
+endmodule
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+{C:/Uni material/2nd year/Sem 4/Computer arch/FSM.v} {1 {vlog -work work {C:/Uni material/2nd year/Sem 4/Computer arch/FSM.v}
+Model Technology ModelSim ALTERA vlog 10.1b Compiler 2012.04 Apr 27 2012
+-- Compiling module FSM
+-- Compiling module tb_FSM
+
+Top level modules:
+	tb_FSM
+
+} {} {}} {C:/Uni material/2nd year/Sem 4/Computer arch/Rom.v} {1 {vlog -work work {C:/Uni material/2nd year/Sem 4/Computer arch/Rom.v}
+Model Technology ModelSim ALTERA vlog 10.1b Compiler 2012.04 Apr 27 2012
+-- Compiling module Rom
+
+Top level modules:
+	Rom
+
+} {} {}} {C:/Uni material/2nd year/Sem 4/Computer arch/DigitalClock.v} {1 {vlog -work work {C:/Uni material/2nd year/Sem 4/Computer arch/DigitalClock.v}
+Model Technology ModelSim ALTERA vlog 10.1b Compiler 2012.04 Apr 27 2012
+-- Compiling module decoder_7seg
+-- Compiling module tb_decoder_7seg
+
+Top level modules:
+	tb_decoder_7seg
+
+} {} {}} {C:/Uni material/2nd year/Sem 4/Computer arch/ClockDivider.v} {1 {vlog -work work {C:/Uni material/2nd year/Sem 4/Computer arch/ClockDivider.v}
+Model Technology ModelSim ALTERA vlog 10.1b Compiler 2012.04 Apr 27 2012
+-- Compiling module clock_divider
+
+Top level modules:
+	clock_divider
+
+} {} {}} {C:/Uni material/2nd year/Sem 4/Computer arch/Counter.v} {1 {vlog -work work {C:/Uni material/2nd year/Sem 4/Computer arch/Counter.v}
+Model Technology ModelSim ALTERA vlog 10.1b Compiler 2012.04 Apr 27 2012
+-- Compiling module counter
+
+Top level modules:
+	counter
+
+} {} {}} {C:/Uni material/2nd year/Sem 4/Computer arch/abqm.v} {1 {vlog -work work {C:/Uni material/2nd year/Sem 4/Computer arch/abqm.v}
+Model Technology ModelSim ALTERA vlog 10.1b Compiler 2012.04 Apr 27 2012
+-- Compiling module abqm
+-- Compiling module abqm_tb
+-- Compiling module FSM
+-- Compiling module tb_FSM
+-- Compiling module counter
+-- Compiling module clock_divider
+-- Compiling module Rom
+-- Compiling module decoder_7seg
+-- Compiling module tb_decoder_7seg
+
+Top level modules:
+	abqm_tb
+	tb_FSM
+	tb_decoder_7seg
+
+} {} {}}
